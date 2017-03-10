@@ -1,2 +1,9 @@
-__pycache__
+# pyvenv and npm package directories
 env
+node_modules
+
+# npm likes to complain
+npm-debug.log
+
+# Compiled files don't belong in git
+static
