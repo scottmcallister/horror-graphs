@@ -6,7 +6,7 @@ export default React.createClass({
       <div className="container">
         <h1>Horror Movie Search</h1>
         <div className="search-box">
-          <input id="search-input" placeholder="Enter movie titles here"></input>
+          <input id="search-input" placeholder="Search by title"></input>
           <button>Search</button>
         </div>
       </div>

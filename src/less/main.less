@@ -35,18 +35,29 @@ h1 {
 
 .search-box {
     padding: 10px;
+    display: flex;
+    margin:auto;
+    flex-direction: row;
+    max-width: 400;
+    flex: 5;
 
     #search-input {
         height:30px;
         border: none;
+        color: #ffffff;
+        padding-left: @horizontal-spacing;
+        padding-right: @horizontal-spacing;
     }
 
     input {
         background: @gray;
+        flex: 4;
+        margin-right: @horizontal-spacing;
     }
 
     button {
         background: @moss;
+        flex: 1;
         #search-input;
     }
 }
