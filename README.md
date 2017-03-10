@@ -1,6 +1,6 @@
 # horror-movie-search
 
-Below you have instructions on how the skeleton project has been set up.
+A search engine for searching horror movie information and reviews.
 
 ## Up and running
 
