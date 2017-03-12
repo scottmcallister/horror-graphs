@@ -3,6 +3,7 @@ import api
 import unittest
 import tempfile
 
+
 class HorrormoviesearchTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -15,6 +16,7 @@ class HorrormoviesearchTestCase(unittest.TestCase):
     def test_get_index(self):
         out = self.app.get('/')
         assert b'data-section="app"' in out.data
+
 
 if __name__ == '__main__':
     unittest.main()
