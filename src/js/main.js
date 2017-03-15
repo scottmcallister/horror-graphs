@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Horrormoviesearch from './components/horror-movie-search'
+import Horrormoviesearch from './components/horror-movie-search';
 
 function init () {
     let app = document.querySelectorAll('[data-section="app"]')[0];

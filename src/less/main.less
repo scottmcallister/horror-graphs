@@ -1,29 +1,25 @@
 @import 'normalize.less/normalize.less';
+@import 'bootstrap/less/bootstrap.less';
 
 @vertical-spacing: 18px;
 @horizontal-spacing: 18px;
-@blue: #0bf;
-@black: #212324;
+@black: #222222;
 @navy: #2A304F;
 @gray: #585258;
 @moss: #4F4F2C;
 @light-gray: #968F90;
+@white: #eeeeee;
 
 html {
-    color: @light-gray;
+    color: @white;
     background: @black;
     font-family: sans-serif;
     font-size: 10px;
 }
 
-.container {
-    background: @navy;
-    width: 90%;
-    min-width: 320px;
-    max-width: 600px;
-    margin: @vertical-spacing auto;
-    padding: @vertical-spacing @horizontal-spacing;
-    border: 0;
+body {
+    background-color: @black;
+    color: @white;
 }
 
 h1 {
