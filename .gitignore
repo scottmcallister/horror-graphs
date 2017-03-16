@@ -6,4 +6,6 @@ node_modules
 npm-debug.log
 
 # Compiled files don't belong in git
-static
+static/css
+static/js
+
