@@ -4,6 +4,7 @@
 @vertical-spacing: 18px;
 @horizontal-spacing: 18px;
 @black: #222222;
+@red: #A62139;
 @navy: #2A304F;
 @gray: #585258;
 @moss: #4F4F2C;
@@ -27,6 +28,10 @@ h1 {
     font-size: 25px
 }
 
+.info {
+    text-align: center;
+}
+
 .search-box {
     padding: 10px;
     display: flex;
@@ -38,7 +43,7 @@ h1 {
     #search-input {
         height:30px;
         border: none;
-        color: #ffffff;
+        color: @white;
         padding-left: @horizontal-spacing;
         padding-right: @horizontal-spacing;
     }
@@ -50,7 +55,7 @@ h1 {
     }
 
     button {
-        background: @moss;
+        background: @red;
         flex: 1;
         #search-input;
     }

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Horrormoviesearch from './components/horror-movie-search';
+import SearchPage from './scenes/SearchPage';
 
 function init () {
     let app = document.querySelectorAll('[data-section="app"]')[0];
     ReactDOM.render(
-        <Horrormoviesearch />,
+        <SearchPage />,
         app
     );
 }
