@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import * as searchActionCreators from '../actions';
 
 class SearchResults extends Component{
 
     static propTypes = {
-        actions: PropTypes.object,
         movies: PropTypes.array,
     }
 

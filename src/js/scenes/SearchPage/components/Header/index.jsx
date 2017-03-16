@@ -1,15 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as searchActionCreators from '../../actions';
 
-export default class Header extends Component{
+class Header extends Component{
+    static propTypes = {
+        actions: PropTypes.object,
+    }
+
     render() {
+        const { actions } = this.props;
         return (
           <div>
             <h1>Horror Movie Search</h1>
             <div className="search-box">
               <input id="search-input" placeholder="Search by title"></input>
-              <button>Search</button>
+              <button onClick={() => actions.getMovies()}>Search</button>
             </div>
           </div>
         );
     }
 }
+
+export default connect(
+    (state) => state,
+    (dispatch) => ({
+        actions: bindActionCreators(
+            Object.assign(
+            {},
+            searchActionCreators),
+            dispatch
+        ),
+    }),
+)(Header);
