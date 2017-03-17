@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import MovieListing from './components/MovieListing';
+import Filters from './components/Filters';
+import _ from 'lodash';
 
 class SearchResults extends Component{
 
@@ -9,7 +11,7 @@ class SearchResults extends Component{
     }
 
     renderMovies(movies) {
-        return movies.map((movie, index) => (
+        const movieListings = movies.map((movie, index) => (
             <MovieListing
                 key={index}
                 country={movie.country}
@@ -22,14 +24,24 @@ class SearchResults extends Component{
                 year={movie.year}
             />
         ));
+        const movieRows = _.chunk(movieListings, 3);
+        return movieRows.map((row, index) =>
+            (<div className="row" key={index}>{row}</div>)
+        );
     }
 
     render() {
         const { movies } = this.props;
         return (
-          <div>
-            {this.renderMovies(movies)}
-          </div>
+            <div className="container">
+                <div className="row">
+                    <Filters />
+                    <div className="col-md-9">
+                      {this.renderMovies(movies)}
+                    </div>
+                </div>
+            </div>
+
         );
     }
 }

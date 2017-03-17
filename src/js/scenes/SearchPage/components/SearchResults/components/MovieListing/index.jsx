@@ -30,7 +30,7 @@ class MovieListing extends Component {
     render() {
         const { hasError } = this.state;
         return (
-            <div className="col-md-4 col-sm-6">
+            <div className="col-sm-4">
                 <div className="thumbnail">
                     <img
                         src={hasError ? '/static/images/image-404.png' : getPosterUrl(this.props.title, this.props.year)}
@@ -38,7 +38,7 @@ class MovieListing extends Component {
                         onError={() => this.setState({ hasError: true })}
                     />
                     <div className="caption">
-                        <h3>{this.props.title}</h3>
+                        <h3>{this.props.title} ({this.props.year})</h3>
                     </div>
                 </div>
             </div>);

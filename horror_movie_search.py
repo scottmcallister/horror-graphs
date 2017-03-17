@@ -34,30 +34,30 @@ def index():
 def movies():
     keywords = request.args.get('keywords') or ''
     director = request.args.get('director') or ''
-    year_min = request.args.get('year_min') or 0
-    year_max = request.args.get('year_max') or 3000
-    critic_min = request.args.get('critic_min') or 0
-    critic_max = request.args.get('critic_max') or 101
-    user_min = request.args.get('user_min') or 0
-    user_max = request.args.get('user_max') or 101
+    year_min = request.args.get('yearMin') or 0
+    year_max = request.args.get('yearMax') or 3000
+    critic_min = request.args.get('criticMin') or 0
+    critic_max = request.args.get('criticMax') or 101
+    user_min = request.args.get('userMin') or 0
+    user_max = request.args.get('userMax') or 101
     country = request.args.get('country') or ''
     page = request.args.get('page') or 1
     offset = (page - 1) * 20
     con = psycopg2.connect(database=dbname, user=user, password=password,
                            host=host, port=port)
     cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    cur.execute('SELECT * FROM movie \
-                WHERE title ILIKE %s \
-                AND director ILIKE %s \
-                AND country ILIKE %s \
-                AND year >= %s \
-                AND year <= %s \
-                AND critic_score >= %s \
-                AND critic_score <= %s \
-                AND user_score >= %s \
-                AND user_score <= %s \
-                ORDER BY critic_score desc \
-                limit 20 offset %s',
+    cur.execute("""SELECT * FROM movie
+                WHERE title ILIKE %s
+                AND director ILIKE %s
+                AND country ILIKE %s
+                AND year >= %s
+                AND year <= %s
+                AND critic_score >= %s
+                AND critic_score <= %s
+                AND user_score >= %s
+                AND user_score <= %s
+                ORDER BY critic_score desc
+                limit 20 offset %s""",
                 ('%' + keywords + '%',
                  '%' + director + '%',
                  '%' + country + '%',

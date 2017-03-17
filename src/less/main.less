@@ -1,5 +1,6 @@
 @import 'normalize.less/normalize.less';
 @import 'bootstrap/less/bootstrap.less';
+@import 'rc-slider.less';
 
 @vertical-spacing: 18px;
 @horizontal-spacing: 18px;
@@ -58,5 +59,22 @@ h1 {
         background: @red;
         flex: 1;
         #search-input;
+    }
+}
+
+.thumbnail {
+    background: @gray;
+    border: 1px solid @gray;
+    border-radius: 0px;
+    .caption h3 {
+        text-align: center;
+        color: @white;
+    }
+}
+
+.filters {
+    background: @gray;
+    h3 {
+        text-align: center;
     }
 }
