@@ -42,7 +42,7 @@ def movies():
     user_max = request.args.get('userMax') or 101
     country = request.args.get('country') or ''
     page = request.args.get('page') or 1
-    offset = (page - 1) * 20
+    offset = (page - 1) * 30
     con = psycopg2.connect(database=dbname, user=user, password=password,
                            host=host, port=port)
     cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -57,7 +57,7 @@ def movies():
                 AND user_score >= %s
                 AND user_score <= %s
                 ORDER BY critic_score desc
-                limit 20 offset %s""",
+                limit 30 offset %s""",
                 ('%' + keywords + '%',
                  '%' + director + '%',
                  '%' + country + '%',

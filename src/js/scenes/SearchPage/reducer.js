@@ -15,7 +15,7 @@ const initialState = {
     yearMin: 0,
     yearMax: 3000,
     criticMin: 0,
-    criticMax: 101,
+    criticMax: 99,
     userMin: 0,
     userMax: 101,
     country: '',

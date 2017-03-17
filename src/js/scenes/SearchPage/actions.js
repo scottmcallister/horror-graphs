@@ -111,8 +111,18 @@ export function updateYearMax(yearMax) {
  * @param  {Object} params - query params to send in the API request
  * @return {Object} dispatches a series of actions
  */
-export const getMovies = (params) =>
-    (dispatch) => {
+export const getMovies = () =>
+    (dispatch, getState) => {
+        const state = getState();
+        const params = {
+            keywords: state.keywords,
+            yearMin: state.yearMin,
+            yearMax: state.yearMax,
+            criticMin: state.criticMin,
+            criticMax: state.criticMax,
+            userMin: state.userMin,
+            userMax: state.userMax,
+        };
         const queryParams = _.toPairs(params)
                             .map(pair => `${pair[0]}=${pair[1]}`)
                             .join('&');

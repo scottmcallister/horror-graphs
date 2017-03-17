@@ -39,6 +39,22 @@ class MovieListing extends Component {
                     />
                     <div className="caption">
                         <h3>{this.props.title} ({this.props.year})</h3>
+                        <div className="row">
+                            <div className="col-xs-6">
+                                <label>Critic Score</label>
+                            </div>
+                            <div className="col-xs-6">
+                                <label>User Score</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-6">
+                                <label className="rt-score">{this.props.critic_score}%</label>
+                            </div>
+                            <div className="col-xs-6">
+                                <label className="rt-score">{this.props.user_score}%</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>);
