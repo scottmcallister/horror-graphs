@@ -8,11 +8,6 @@ class Header extends Component{
         actions: PropTypes.object,
     }
 
-    componentDidMount() {
-        const { actions } = this.props;
-        actions.getMovies();
-    }
-
     render() {
         const { actions } = this.props;
         return (

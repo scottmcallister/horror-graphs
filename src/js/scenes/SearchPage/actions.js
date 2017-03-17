@@ -9,6 +9,7 @@ export const UPDATE_YEAR_MIN = 'UPDATE_YEAR_MIN';
 export const UPDATE_YEAR_MAX = 'UPDATE_YEAR_MAX';
 export const UPDATE_CRITIC_MIN = 'UPDATE_CRITIC_MIN';
 export const UPDATE_CRITIC_MAX = 'UPDATE_CRITIC_MAX';
+export const UPDATE_FETCHING = 'UPDATE_FETCHING';
 
 /**
  * updateMovies - updates list of movies to display to the user
@@ -43,6 +44,18 @@ export function updateUserMin(userMin) {
     return {
         type: UPDATE_USER_MIN,
         userMin,
+    };
+}
+
+/**
+ * updateFetching - show/hide loading animation
+ * @param  {Boolean} fetching
+ * @return {Object} Action
+ */
+export function updateFetching(fetching) {
+    return {
+        type: UPDATE_FETCHING,
+        fetching,
     };
 }
 
@@ -113,6 +126,7 @@ export function updateYearMax(yearMax) {
  */
 export const getMovies = () =>
     (dispatch, getState) => {
+        dispatch(updateFetching(true));
         const state = getState();
         const params = {
             keywords: state.keywords,
@@ -128,6 +142,9 @@ export const getMovies = () =>
                             .join('&');
         return fetch(`/api/movie?${queryParams}`)
             .then(response => response.json())
-            .then((json) => dispatch(updateMovies(json.movies)))
+            .then((json) => {
+                dispatch(updateFetching(false));
+                dispatch(updateMovies(json.movies));
+            })
             .catch((err) => console.log(err));
     };

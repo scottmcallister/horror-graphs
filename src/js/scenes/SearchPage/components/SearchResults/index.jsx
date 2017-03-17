@@ -1,16 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import MovieListing from './components/MovieListing';
 import Filters from './components/Filters';
+import Spinner from './components/Spinner';
+import * as searchActionCreators from '../../actions';
+
 import _ from 'lodash';
 
 class SearchResults extends Component{
 
     static propTypes = {
         movies: PropTypes.array,
+        actions: PropTypes.object,
+        fetching: PropTypes.bool.isRequired,
     }
 
-    renderMovies(movies) {
+    componentDidMount() {
+        const { actions } = this.props;
+        actions.getMovies();
+    }
+
+    renderMovies(movies, fetching) {
+        if(movies.length === 0 && !fetching) {
+            return (<p>No results</p>);
+        }
         const movieListings = movies.map((movie, index) => (
             <MovieListing
                 key={index}
@@ -31,13 +45,14 @@ class SearchResults extends Component{
     }
 
     render() {
-        const { movies } = this.props;
+        const { movies, fetching } = this.props;
         return (
             <div className="container">
                 <div className="row">
                     <Filters />
                     <div className="col-md-9">
-                      {this.renderMovies(movies)}
+                      {this.renderMovies(movies, fetching)}
+                      {fetching ? <Spinner /> : null}
                     </div>
                 </div>
             </div>
@@ -49,5 +64,14 @@ class SearchResults extends Component{
 export default connect(
     (state) => ({
         movies: state.movies,
+        fetching: state.fetching,
+    }),
+    (dispatch) => ({
+        actions: bindActionCreators(
+            Object.assign(
+            {},
+            searchActionCreators),
+            dispatch
+        ),
     })
 )(SearchResults);

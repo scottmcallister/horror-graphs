@@ -7,6 +7,7 @@ import {
     UPDATE_YEAR_MAX,
     UPDATE_CRITIC_MIN,
     UPDATE_CRITIC_MAX,
+    UPDATE_FETCHING,
 } from './actions';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
     userMax: 101,
     country: '',
     page: 1,
+    fetching: false,
     movies: []
 };
 
@@ -56,6 +58,10 @@ const reducer = (state = initialState, action) => {
         case UPDATE_CRITIC_MAX:
             return Object.assign({}, state, {
                 criticMax: action.criticMax,
+            });
+        case UPDATE_FETCHING:
+            return Object.assign({}, state, {
+                fetching: action.fetching,
             });
         default:
             return state;
