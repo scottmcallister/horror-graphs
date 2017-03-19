@@ -25,6 +25,7 @@ class Filters extends Component{
                         onAfterChange={(val) => {
                             actions.updateYearMin(val[0]);
                             actions.updateYearMax(val[1]);
+                            actions.resetPagination();
                             actions.getMovies();
                         }} />
                     <label>Critic Score</label>
@@ -34,6 +35,7 @@ class Filters extends Component{
                         onAfterChange={(val) => {
                             actions.updateCriticMin(val[0]);
                             actions.updateCriticMax(val[1]);
+                            actions.resetPagination();
                             actions.getMovies();
                         }} />
                     <label>User Score</label>
@@ -43,6 +45,7 @@ class Filters extends Component{
                         onAfterChange={(val) => {
                             actions.updateUserMin(val[0]);
                             actions.updateUserMax(val[1]);
+                            actions.resetPagination();
                             actions.getMovies();
                         }} />
                 </div>

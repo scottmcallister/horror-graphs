@@ -42,7 +42,7 @@ def movies():
     user_max = request.args.get('userMax') or 101
     country = request.args.get('country') or ''
     page = request.args.get('page') or 1
-    offset = (page - 1) * 30
+    offset = (int(page) - 1) * 30
     con = psycopg2.connect(database=dbname, user=user, password=password,
                            host=host, port=port)
     cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)

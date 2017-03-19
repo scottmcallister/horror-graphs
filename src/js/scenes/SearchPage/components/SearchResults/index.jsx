@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import MovieListing from './components/MovieListing';
 import Filters from './components/Filters';
 import Spinner from './components/Spinner';
+import Pagination from './components/Pagination';
 import * as searchActionCreators from '../../actions';
 
 import _ from 'lodash';
@@ -52,6 +53,7 @@ class SearchResults extends Component{
                     <Filters />
                     <div className="col-md-9">
                       {this.renderMovies(movies, fetching)}
+                      {movies.length > 0 && !fetching ? <Pagination /> : ''}
                       {fetching ? <Spinner /> : null}
                     </div>
                 </div>

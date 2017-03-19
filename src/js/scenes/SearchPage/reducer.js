@@ -8,6 +8,10 @@ import {
     UPDATE_CRITIC_MIN,
     UPDATE_CRITIC_MAX,
     UPDATE_FETCHING,
+    NEXT_PAGE,
+    PREV_PAGE,
+    UPDATE_HAS_NEXT,
+    RESET_PAGINATION,
 } from './actions';
 
 const initialState = {
@@ -21,6 +25,7 @@ const initialState = {
     userMax: 101,
     country: '',
     page: 1,
+    hasNext: true,
     fetching: false,
     movies: []
 };
@@ -62,6 +67,26 @@ const reducer = (state = initialState, action) => {
         case UPDATE_FETCHING:
             return Object.assign({}, state, {
                 fetching: action.fetching,
+            });
+        case NEXT_PAGE:{
+            const newPageNum = state.page + 1;
+            return Object.assign({}, state, {
+                page: newPageNum,
+            });
+        }
+        case PREV_PAGE:{
+            const newPageNum = state.page - 1;
+            return Object.assign({}, state, {
+                page: newPageNum,
+            });
+        }
+        case RESET_PAGINATION:
+            return Object.assign({}, state, {
+                page: 1,
+            });
+        case UPDATE_HAS_NEXT:
+            return Object.assign({}, state, {
+                hasNext: action.hasNext,
             });
         default:
             return state;

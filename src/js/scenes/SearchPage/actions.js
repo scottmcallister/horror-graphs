@@ -10,6 +10,10 @@ export const UPDATE_YEAR_MAX = 'UPDATE_YEAR_MAX';
 export const UPDATE_CRITIC_MIN = 'UPDATE_CRITIC_MIN';
 export const UPDATE_CRITIC_MAX = 'UPDATE_CRITIC_MAX';
 export const UPDATE_FETCHING = 'UPDATE_FETCHING';
+export const NEXT_PAGE = 'NEXT_PAGE';
+export const PREV_PAGE = 'PREV_PAGE';
+export const UPDATE_HAS_NEXT = 'UPDATE_HAS_NEXT';
+export const RESET_PAGINATION = 'RESET_PAGINATION';
 
 /**
  * updateMovies - updates list of movies to display to the user
@@ -120,12 +124,55 @@ export function updateYearMax(yearMax) {
 }
 
 /**
+ * nextPage - increase the page number
+ * @return {Object} Action
+ */
+export function nextPage() {
+    return {
+        type: NEXT_PAGE,
+    };
+}
+
+/**
+ * resetPagination - set page number to 1
+ * @return {Object} Action
+ */
+export function resetPagination() {
+    return {
+        type: RESET_PAGINATION,
+    };
+}
+
+/**
+ * prevPage - increase the page number
+ * @return {Object} Action
+ */
+export function prevPage() {
+    return {
+        type: PREV_PAGE,
+    };
+}
+
+/**
+ * updateHasNext - toggle display of "next" button in pagination
+ * @param  {Boolean} hasNext - show/hide button
+ * @return {Object} Action
+ */
+export function updateHasNext(hasNext) {
+    return {
+        type: UPDATE_HAS_NEXT,
+        hasNext,
+    };
+}
+
+/**
  * getMovies - fetches a list of movies from the API
  * @param  {Object} params - query params to send in the API request
  * @return {Object} dispatches a series of actions
  */
 export const getMovies = () =>
     (dispatch, getState) => {
+        console.log('in getMovies');
         dispatch(updateFetching(true));
         const state = getState();
         const params = {
@@ -136,13 +183,16 @@ export const getMovies = () =>
             criticMax: state.criticMax,
             userMin: state.userMin,
             userMax: state.userMax,
+            page: state.page,
         };
         const queryParams = _.toPairs(params)
                             .map(pair => `${pair[0]}=${pair[1]}`)
                             .join('&');
+        console.log('gettin movies');
         return fetch(`/api/movie?${queryParams}`)
             .then(response => response.json())
             .then((json) => {
+                console.log('got movies');
                 dispatch(updateFetching(false));
                 dispatch(updateMovies(json.movies));
             })
