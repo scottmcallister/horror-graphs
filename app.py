@@ -28,7 +28,6 @@ class Movie(db.Model):
 
     @property
     def serialize(self):
-        print(self.__table__.columns)
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def __init__(self, title, director, country, poster,
@@ -67,7 +66,6 @@ def movies():
     country = request.args.get('country') or ''
     page = request.args.get('page') or 1
     offset = (int(page) - 1) * 30
-    print(offset)
     movies = Movie.query.filter(Movie.title.like("%" + keywords + "%"),
                                 Movie.director.like("%" + director + "%"),
                                 Movie.year >= year_min,
@@ -79,7 +77,6 @@ def movies():
                         .order_by(desc(Movie.critic_score)) \
                         .limit(30) \
                         .offset(offset)
-    print(str(movies.statement.compile(dialect=postgresql.dialect())))
     return jsonify(movies=[movie.serialize for movie in movies])
 
 
