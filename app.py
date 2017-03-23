@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify, request
 from flask_restful import reqparse, Resource, Api
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects import postgresql
+from sqlalchemy import desc
 from config import SQLALCHEMY_DATABASE_URI
 import json
 
@@ -59,35 +61,25 @@ def movies():
     year_min = request.args.get('yearMin') or 0
     year_max = request.args.get('yearMax') or 3000
     critic_min = request.args.get('criticMin') or 0
-    critic_max = request.args.get('criticMax') or 101
+    critic_max = request.args.get('criticMax') or 99
     user_min = request.args.get('userMin') or 0
-    user_max = request.args.get('userMax') or 101
+    user_max = request.args.get('userMax') or 99
     country = request.args.get('country') or ''
     page = request.args.get('page') or 1
     offset = (int(page) - 1) * 30
-    movies = Movie.query.all()
-    # cur.execute("""SELECT * FROM movie
-    #             WHERE title ILIKE %s
-    #             AND director ILIKE %s
-    #             AND country ILIKE %s
-    #             AND year >= %s
-    #             AND year <= %s
-    #             AND critic_score >= %s
-    #             AND critic_score <= %s
-    #             AND user_score >= %s
-    #             AND user_score <= %s
-    #             ORDER BY critic_score desc
-    #             limit 30 offset %s""",
-    #             ('%' + keywords + '%',
-    #              '%' + director + '%',
-    #              '%' + country + '%',
-    #              year_min,
-    #              year_max,
-    #              critic_min,
-    #              critic_max,
-    #              user_min,
-    #              user_max,
-    #              offset))
+    print(offset)
+    movies = Movie.query.filter(Movie.title.like("%" + keywords + "%"),
+                                Movie.director.like("%" + director + "%"),
+                                Movie.year >= year_min,
+                                Movie.year <= year_max,
+                                Movie.critic_score >= critic_min,
+                                Movie.critic_score <= critic_max,
+                                Movie.user_score >= user_min,
+                                Movie.user_score <= user_max) \
+                        .order_by(desc(Movie.critic_score)) \
+                        .limit(30) \
+                        .offset(offset)
+    print(str(movies.statement.compile(dialect=postgresql.dialect())))
     return jsonify(movies=[movie.serialize for movie in movies])
 
 
