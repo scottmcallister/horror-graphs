@@ -170,8 +170,8 @@ export function updateHasNext(hasNext) {
  * @param  {Object} params - query params to send in the API request
  * @return {Object} dispatches a series of actions
  */
-export const getMovies = () =>
-    (dispatch, getState) => {
+export const getMovies = () => {
+    return (dispatch, getState) => {
         console.log('in getMovies');
         dispatch(updateFetching(true));
         const state = getState();
@@ -188,13 +188,18 @@ export const getMovies = () =>
         const queryParams = _.toPairs(params)
                             .map(pair => `${pair[0]}=${pair[1]}`)
                             .join('&');
-        console.log('gettin movies');
-        return fetch(`/api/movie?${queryParams}`)
-            .then(response => response.json())
-            .then((json) => {
-                console.log('got movies');
+        console.log('getting movies');
+        fetch(`/api/movie?${queryParams}`)
+            .then(response => {
+                console.log('got response');
                 dispatch(updateFetching(false));
+                return response.json();
+            })
+            .then((json) => {
                 dispatch(updateMovies(json.movies));
             })
-            .catch((err) => console.log(err));
+            .catch(() => {
+                console.log('wtf...');
+            });
     };
+};

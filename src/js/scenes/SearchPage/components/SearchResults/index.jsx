@@ -17,9 +17,17 @@ class SearchResults extends Component{
         fetching: PropTypes.bool.isRequired,
     }
 
-    componentDidMount() {
-        const { actions } = this.props;
-        actions.getMovies();
+    constructor(props) {
+        super(props);
+        this.fetchMovies = this.fetchMovies.bind(this);
+    }
+
+    componentWillMount() {
+        this.fetchMovies();
+    }
+
+    fetchMovies() {
+        this.props.actions.getMovies();
     }
 
     renderMovies(movies, fetching) {

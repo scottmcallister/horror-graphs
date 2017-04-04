@@ -30,7 +30,7 @@ class Filters extends Component{
                         }} />
                     <label>Critic Score</label>
                     <TooltipRange
-                        defaultValue={[0, 100]}
+                        defaultValue={[0, 99]}
                         allowCross={false}
                         onAfterChange={(val) => {
                             actions.updateCriticMin(val[0]);
@@ -40,7 +40,7 @@ class Filters extends Component{
                         }} />
                     <label>User Score</label>
                     <TooltipRange
-                        defaultValue={[0, 100]}
+                        defaultValue={[0, 99]}
                         allowCross={false}
                         onAfterChange={(val) => {
                             actions.updateUserMin(val[0]);

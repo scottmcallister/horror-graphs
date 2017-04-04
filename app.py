@@ -5,12 +5,15 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy import desc
 from config import SQLALCHEMY_DATABASE_URI
 import json
+import logging
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 api = Api(app)
+logging.basicConfig()
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 
 class Movie(db.Model):

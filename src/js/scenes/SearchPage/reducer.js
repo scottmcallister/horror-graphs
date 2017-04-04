@@ -22,7 +22,7 @@ const initialState = {
     criticMin: 0,
     criticMax: 99,
     userMin: 0,
-    userMax: 101,
+    userMax: 99,
     country: '',
     page: 1,
     hasNext: true,
