@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import _ from 'lodash';
+import 'whatwg-fetch';
 
 export const UPDATE_MOVIES = 'UPDATE_MOVIES';
 export const UPDATE_KEYWORDS = 'UPDATE_KEYWORDS';
@@ -172,7 +173,6 @@ export function updateHasNext(hasNext) {
  */
 export const getMovies = () => {
     return (dispatch, getState) => {
-        console.log('in getMovies');
         dispatch(updateFetching(true));
         const state = getState();
         const params = {
@@ -188,18 +188,22 @@ export const getMovies = () => {
         const queryParams = _.toPairs(params)
                             .map(pair => `${pair[0]}=${pair[1]}`)
                             .join('&');
-        console.log('getting movies');
-        fetch(`/api/movie?${queryParams}`)
-            .then(response => {
-                console.log('got response');
-                dispatch(updateFetching(false));
-                return response.json();
-            })
-            .then((json) => {
-                dispatch(updateMovies(json.movies));
-            })
-            .catch(() => {
-                console.log('wtf...');
-            });
+        try {
+            fetch(`/api/movie?${queryParams}`)
+                .then(response => {
+                    console.log('got response');
+                    dispatch(updateFetching(false));
+                    return response.json();
+                })
+                .then((json) => {
+                    dispatch(updateMovies(json.movies));
+                })
+                .catch(() => {
+                    console.log('request error');
+                });
+        } catch (err) {
+            console.log('caught exception');
+        }
+
     };
 };
