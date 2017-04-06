@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import RottenTomatoesIcon from '../RottenTomatoesIcon';
 
 const getPosterUrl = (name, year) => {
     const fixed_name = name.replace(/([^\s\w]|_)+/g, '')
@@ -49,9 +50,11 @@ class MovieListing extends Component {
                         </div>
                         <div className="row">
                             <div className="col-xs-6">
+                                <RottenTomatoesIcon type="critic" rating={this.props.critic_score} />
                                 <label className="rt-score">{this.props.critic_score}%</label>
                             </div>
                             <div className="col-xs-6">
+                                <RottenTomatoesIcon type="audience" rating={this.props.user_score} />
                                 <label className="rt-score">{this.props.user_score}%</label>
                             </div>
                         </div>
