@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from flask_restful import reqparse, Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects import postgresql
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from config import SQLALCHEMY_DATABASE_URI
 import json
 import logging
@@ -69,7 +69,8 @@ def movies():
     country = request.args.get('country') or ''
     page = request.args.get('page') or 1
     offset = (int(page) - 1) * 30
-    movies = Movie.query.filter(Movie.title.like("%" + keywords + "%"),
+    movies = Movie.query.filter(func.lower(Movie.title)
+                                .like("%" + func.lower(keywords) + "%"),
                                 Movie.director.like("%" + director + "%"),
                                 Movie.year >= year_min,
                                 Movie.year <= year_max,
