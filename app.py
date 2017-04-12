@@ -28,6 +28,8 @@ class Movie(db.Model):
     critic_score = db.Column(db.Integer)
     user_score = db.Column(db.Integer)
     rt_url = db.Column(db.String())
+    imdb_keywords = db.Column(db.String())
+    imdb_rating = db.Column(db.String())
 
     @property
     def serialize(self):
